@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# AutoPyzon
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**AutoPyzon** es una aplicación de escritorio diseñada para automatizar tareas repetitivas relacionadas con la gestión de archivos y documentos, utilizando la potencia de **Python** para el procesamiento y la interfaz de usuario de **Electron** y **React** para una experiencia amigable.
 
-## Available Scripts
+## 🚀 Funcionalidades
 
-In the project directory, you can run:
+AutoPyzon simplifica diversas tareas de oficina y gestión de archivos, incluyendo:
 
-### `npm start`
+1. **Creación de informes en Word**:
+   - Genera documentos automatizados a partir de plantillas predefinidas.
+   - Personaliza contenido dinámicamente, como gráficos, tablas y texto.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. **Gestión de carpetas**:
+   - Renombra carpetas de manera masiva según criterios específicos.
+   - Organiza archivos automáticamente en subcarpetas por tipo o fecha.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. **Separación y Combinacion de PDFs**:
+   - Divide archivos PDF en páginas individuales o rangos específicos.
+   - Combina varios PDFs en un solo archivo.
 
-### `npm test`
+4. **Envio, Lectura y Exportacion de correos electronicos de Gmail**:
+   - Personaliza envios masivos de correos a diversos destinatarios con estructura fija
+   - Leer los correos y filtra a tu gusto.
+   - Recoge correos para exportarlos como word o pdf.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+5. **Envio, Lectura y Exportacion de mensajes de Whatsapp**:
+   - Personaliza envios de mensajes de whatsapp a contactos o grupos incluyendo imagenes
+   - Leer los mensajes y filtra a tu gusto.
+   - Recoge mensajes de Whatsapp para exportarlos como word o pdf.
 
-### `npm run build`
+5. **Algunas mas en desarrollo**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🖥️ Tecnologías Utilizadas
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Frontend**:
+  - **Electron**: Para la interfaz de escritorio.
+  - **React**: Para la creación de componentes interactivos.
 
-### `npm run eject`
+- **Backend**:
+  - **Python**: Manejo de lógica de automatización.
+  - **Librerías**:
+    - `python-docx`: Para manejar documentos Word.
+    - `PyPDF2`: Para gestionar PDFs.
+    - `yt-dlp`: Para la descarga de videos.
+    - `os`, `shutil`: Para manipulación de archivos y carpetas.
+    - ...
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Otras herramientas**:
+  - **FFmpeg**: Para la conversión y manipulación de videos.
+  - **Whisper**: Para la generación automática de subtítulos.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 📦 Instalación y Uso
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Requisitos Previos
 
-## Learn More
+1. **Node.js** y **npm** o **yarn** instalados.
+2. **Python** (versión 3.9 o superior) con las librerías necesarias.
+3. **FFmpeg** instalado y configurado en el sistema.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Pasos para instalar
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Clona este repositorio:
+   `bash`
+   git clone https://github.com/tu-usuario/AutoPyzon.git
+   cd AutoPyzon
 
-### Code Splitting
+2. Instala las dependencias
+    yarn install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+3. Instala las dependencias de Python (requeridas para las automatizaciones):
+    pip install -r requirements.txt
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4. Ejecuta la aplicación:
+    yarn electron-dev
