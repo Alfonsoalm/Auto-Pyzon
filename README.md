@@ -7,26 +7,22 @@
 AutoPyzon simplifica diversas tareas de oficina y gestión de archivos, incluyendo:
 
 1. **Creación de informes en Word**:
-   - Genera documentos automatizados a partir de plantillas predefinidas.
-   - Personaliza contenido dinámicamente, como gráficos, tablas y texto.
+   - En proceso ...
 
 2. **Gestión de carpetas**:
    - Renombra carpetas de manera masiva según criterios específicos.
    - Organiza archivos automáticamente en subcarpetas por tipo o fecha.
+   - Eliminar archivos duplicados dentro de carpeta
 
 3. **Separación y Combinacion de PDFs**:
    - Divide archivos PDF en páginas individuales o rangos específicos.
    - Combina varios PDFs en un solo archivo.
 
 4. **Envio, Lectura y Exportacion de correos electronicos de Gmail**:
-   - Personaliza envios masivos de correos a diversos destinatarios con estructura fija
-   - Leer los correos y filtra a tu gusto.
-   - Recoge correos para exportarlos como word o pdf.
+   - En proceso ...
 
 5. **Envio, Lectura y Exportacion de mensajes de Whatsapp**:
-   - Personaliza envios de mensajes de whatsapp a contactos o grupos incluyendo imagenes
-   - Leer los mensajes y filtra a tu gusto.
-   - Recoge mensajes de Whatsapp para exportarlos como word o pdf.
+   - En proceso ...
 
 5. **Algunas mas en desarrollo**
 
