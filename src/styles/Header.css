@@ -1,17 +1,32 @@
 .app-header {
-    background-color: #0a169f;
-    color: white;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .app-header h1 {
-    margin: 0;
-    font-size: 2rem;
-  }
-  
-  .app-header p {
-    margin: 10px 0 0;
-    font-size: 1.2rem;
-  }
-  
+  background-color: #0a169f;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.back-button {
+  position: absolute;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}

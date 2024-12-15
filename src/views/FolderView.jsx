@@ -46,7 +46,6 @@ export const FolderView = () => {
 
   return (
     <div className="view-container">
-      <button onClick={() => navigate("/")}>⬅️ Volver</button>
       <h2>Gestión de Archivos y Carpetas</h2>
 
       <div>
