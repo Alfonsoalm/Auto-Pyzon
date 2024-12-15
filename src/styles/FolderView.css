@@ -99,3 +99,34 @@
     font-size: 14px;
   }
   
+  .rename-options {
+    margin-top: 20px;
+  }
+  
+  .rename-options h3 {
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .rename-options label {
+    display: block;
+    margin: 10px 0 5px;
+  }
+  
+  .rename-options input,
+  .rename-options select {
+    padding: 5px;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .rename-options input:focus,
+  .rename-options select:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  

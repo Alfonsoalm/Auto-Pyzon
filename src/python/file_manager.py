@@ -40,6 +40,48 @@ def find_duplicates(folder_path):
     except Exception as e:
         return f"Error al buscar duplicados: {str(e)}"
 
+# === Función para encontrar y eliminar archivos duplicados ===
+def delete_duplicates(folder_path):
+    """
+    Encuentra y elimina archivos duplicados en una carpeta.
+    Mantiene solo el primer archivo y elimina los duplicados.
+    """
+    try:
+        hashes = {}
+        for root, _, files in os.walk(folder_path):
+            for file in files:
+                file_path = os.path.join(root, file)
+                file_hash = calculate_hash(file_path)
+                if "Error" in file_hash:
+                    print(file_hash)  # Imprime el error si ocurre durante el cálculo del hash
+                    continue
+                if file_hash in hashes:
+                    hashes[file_hash].append(file_path)
+                else:
+                    hashes[file_hash] = [file_path]
+        duplicates = {k: v for k, v in hashes.items() if len(v) > 1}
+
+        if duplicates:
+            # print("\nArchivos duplicados encontrados y eliminados:")
+            # for hash_key, file_list in duplicates.items():
+            #     print(f"Hash: {hash_key}")
+
+            # Eliminar duplicados
+            for file_list in duplicates.values():
+                for file_path in file_list[1:]:  # Mantener el primer archivo
+                    try:
+                        os.remove(file_path)
+                        # print(f"Eliminado: {file_path}")
+                    except Exception as e:
+                        print(f"Error al eliminar {file_path}: {str(e)}")
+
+            return "Duplicados eliminados exitosamente."
+        else:
+            return "No se encontraron duplicados."
+
+    except Exception as e:
+        return f"Error al buscar o eliminar duplicados: {str(e)}"
+
 # === Función para organizar archivos por tipo ===
 def organize_files(folder_path):
     """
@@ -100,7 +142,6 @@ def rename_files(folder_path, mode, prefix="", suffix="", replace_text=None, rep
     except Exception as e:
         return f"Error al renombrar archivos: {str(e)}"
 
-# === Manejo de argumentos ===
 if __name__ == "__main__":
     try:
         parser = argparse.ArgumentParser(description="Gestión de Archivos")
@@ -119,16 +160,9 @@ if __name__ == "__main__":
             print(result)
 
         elif args.task == "duplicates":
-            duplicates = find_duplicates(args.folder)
-            if isinstance(duplicates, str):  # Manejo de errores
-                print(duplicates)
-            else:
-                print("Duplicados encontrados:")
-                for hash_key, file_list in duplicates.items():
-                    print(f"Hash: {hash_key}")
-                    for file in file_list:
-                        print(f"  - {file}")
-                        
+            result = delete_duplicates(args.folder)
+            print(result)
+
         elif args.task == "rename":
             result = rename_files(
                 folder_path=args.folder,
