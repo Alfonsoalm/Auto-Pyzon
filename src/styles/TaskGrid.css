@@ -1,0 +1,8 @@
+.task-grid {
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente (si hay más de una fila) */
+  flex-wrap: wrap; /* Permite que los elementos hagan wrap cuando no caben en una línea */
+  gap: 30px; /* Espaciado entre los elementos */
+  padding: 20px; /* Espaciado alrededor del contenedor */
+}
