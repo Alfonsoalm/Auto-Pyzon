@@ -13,7 +13,6 @@ __pycache__/
 # production
 /build
 /dist
-/src/python
 /python_env
 
 # misc

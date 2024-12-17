@@ -31,7 +31,7 @@ export const WordView = () => {
     setMessage("");
 
     try {
-      const result = await window.api.executePython("word_manager.py", params);
+      const result = await window.api.executePython("word_generator.py", params);
       setMessage(result);
     } catch (error) {
       setMessage("Error: " + error);

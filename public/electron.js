@@ -135,7 +135,7 @@ ipcMain.handle("execute-python-script", async (event, scriptName, params) => {
         }
         break;
 
-      case "word_manager.py":
+      case "word_generator.py":
         if (!params.task || !params.folder) {
           throw new Error("Faltan parámetros obligatorios (task y folder) para word_manager.py.");
         }
