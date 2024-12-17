@@ -17,6 +17,7 @@ def calculate_hash(file_path, chunk_size=8192):
     except Exception as e:
         return f"Error al calcular hash para {file_path}: {str(e)}"
 
+
 # === Función para encontrar archivos duplicados ===
 def find_duplicates(folder_path):
     """
@@ -39,6 +40,7 @@ def find_duplicates(folder_path):
         return duplicates
     except Exception as e:
         return f"Error al buscar duplicados: {str(e)}"
+
 
 # === Función para encontrar y eliminar archivos duplicados ===
 def delete_duplicates(folder_path):
@@ -82,6 +84,7 @@ def delete_duplicates(folder_path):
     except Exception as e:
         return f"Error al buscar o eliminar duplicados: {str(e)}"
 
+
 # === Función para organizar archivos por tipo ===
 def organize_files(folder_path):
     """
@@ -103,6 +106,7 @@ def organize_files(folder_path):
     except Exception as e:
         return f"Error al organizar archivos: {str(e)}"
 
+
 # === Función para renombrar archivos ===
 def rename_files(folder_path, mode, prefix="", suffix="", replace_text=None, replace_with=None):
     """
@@ -117,31 +121,50 @@ def rename_files(folder_path, mode, prefix="", suffix="", replace_text=None, rep
         if not files:
             return "No se encontraron archivos en la carpeta."
 
+        used_names = {}  # Diccionario para manejar nombres duplicados
+
         for i, filename in enumerate(files):
             file_path = os.path.join(folder_path, filename)
-            file_name, file_extension = os.path.splitext(filename)
+            file_name, file_extension = os.path.splitext(filename)  # Mantener extensión
 
             # Generar el nuevo nombre basado en el modo seleccionado
             if mode == "sequential":
                 new_name = f"{prefix}{i + 1:03d}{suffix}{file_extension}"
+
             elif mode == "creation_date":
                 creation_time = os.path.getctime(file_path)
                 formatted_date = datetime.fromtimestamp(creation_time).strftime("%Y-%m-%d")
-                new_name = f"{prefix}{formatted_date}{suffix}{file_extension}"
+                base_name = f"{prefix}{formatted_date}{suffix}"
+                new_name = f"{base_name}{file_extension}"
+                
+                # Manejo de nombres duplicados con sufijo numérico
+                counter = 1
+                while new_name in used_names:
+                    new_name = f"{base_name} ({counter}){file_extension}"
+                    counter += 1
+
+                used_names[new_name] = True  # Guardar el nombre usado
+
             elif mode == "custom":
-                new_name = f"{prefix}{file_name}{suffix}"
+                new_name = f"{prefix}{file_name}{suffix}{file_extension}"
                 if replace_text and replace_with:
                     new_name = new_name.replace(replace_text, replace_with)
+
             else:
                 continue
 
             # Renombrar el archivo
             new_file_path = os.path.join(folder_path, new_name)
             os.rename(file_path, new_file_path)
+            print(f"Renombrado: {filename} -> {new_name}")
+
         return "Renombrado completado."
+
     except Exception as e:
         return f"Error al renombrar archivos: {str(e)}"
 
+
+# === Script principal ===
 if __name__ == "__main__":
     try:
         parser = argparse.ArgumentParser(description="Gestión de Archivos")
@@ -152,25 +175,17 @@ if __name__ == "__main__":
         parser.add_argument("--suffix", default="", help="Sufijo para el nombre del archivo.")
         parser.add_argument("--replace_text", help="Texto a reemplazar en el nombre del archivo.")
         parser.add_argument("--replace_with", help="Texto de reemplazo.")
-
         args = parser.parse_args()
 
-        if args.task == "organize":
-            result = organize_files(args.folder)
-            print(result)
-
-        elif args.task == "duplicates":
-            result = delete_duplicates(args.folder)
-            print(result)
-
-        elif args.task == "rename":
+        if args.task == "rename":
             result = rename_files(
                 folder_path=args.folder,
                 mode=args.mode,
                 prefix=args.prefix,
                 suffix=args.suffix,
                 replace_text=args.replace_text,
-                replace_with=args.replace_with)
+                replace_with=args.replace_with
+            )
             print(result)
 
     except Exception as e:

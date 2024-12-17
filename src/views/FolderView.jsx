@@ -6,6 +6,7 @@ export const FolderView = () => {
   const [folderPath, setFolderPath] = useState("");
   const [message, setMessage] = useState(""); // Estado para el mensaje
   const [messageType, setMessageType] = useState(""); // "success" o "error"
+  const [isProcessing, setIsProcessing] = useState(false); // Barra de carga
 
   // Estados específicos para la tarea "rename"
   const [renameParams, setRenameParams] = useState({
@@ -56,6 +57,10 @@ export const FolderView = () => {
       params.replace_with = renameParams.replace_with;
     }
 
+    setIsProcessing(true); // Iniciar la barra de carga
+    setMessage(""); // Limpiar mensaje previo
+    setMessageType("");
+
     try {
       const result = await window.api.executePython("file_manager.py", params);
       setMessage(result);
@@ -64,6 +69,8 @@ export const FolderView = () => {
       console.error("Error ejecutando el script:", error);
       setMessage("Ocurrió un error al ejecutar la tarea.");
       setMessageType("error");
+    } finally {
+      setIsProcessing(false); // Detener la barra de carga
     }
   };
 
@@ -73,7 +80,12 @@ export const FolderView = () => {
 
       <div>
         <label htmlFor="task-select">Selecciona una tarea:</label>
-        <select id="task-select" onChange={handleTaskChange} value={task}>
+        <select
+          id="task-select"
+          onChange={handleTaskChange}
+          value={task}
+          disabled={isProcessing}
+        >
           <option value="organize">Organizar Archivos</option>
           <option value="duplicates">Eliminar Duplicados</option>
           <option value="rename">Renombrar Archivos</option>
@@ -81,7 +93,9 @@ export const FolderView = () => {
       </div>
 
       <div>
-        <button onClick={handleSelectFolder}>Seleccionar Carpeta</button>
+        <button onClick={handleSelectFolder} disabled={isProcessing}>
+          Seleccionar Carpeta
+        </button>
         {folderPath && <p>Carpeta seleccionada: {folderPath}</p>}
       </div>
 
@@ -96,56 +110,76 @@ export const FolderView = () => {
               name="mode"
               value={renameParams.mode}
               onChange={handleRenameParamChange}
+              disabled={isProcessing}
             >
               <option value="sequential">Secuencial</option>
               <option value="creation_date">Fecha de Creación</option>
               <option value="custom">Personalizado</option>
             </select>
           </div>
-          <div>
-            <input
-              type="text"
-              id="prefix"
-              name="prefix"
-              placeholder="Prefijo"
-              value={renameParams.prefix}
-              onChange={handleRenameParamChange}
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              id="suffix"
-              name="suffix"
-              placeholder="Sufijo"
-              value={renameParams.suffix}
-              onChange={handleRenameParamChange}
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              id="replace_text"
-              name="replace_text"
-              placeholder="Reemplazar Texto"
-              value={renameParams.replace_text}
-              onChange={handleRenameParamChange}
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              id="replace_with"
-              name="replace_with"
-              placeholder="Reemplazar Por"
-              value={renameParams.replace_with}
-              onChange={handleRenameParamChange}
-            />
-          </div>
+          {/* Mostrar estos campos solo si el modo es "custom" */}
+          {renameParams.mode === "custom" && (
+            <>
+              <div>
+                <input
+                  type="text"
+                  id="prefix"
+                  name="prefix"
+                  placeholder="Prefijo"
+                  value={renameParams.prefix}
+                  onChange={handleRenameParamChange}
+                  disabled={isProcessing}
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  id="suffix"
+                  name="suffix"
+                  placeholder="Sufijo"
+                  value={renameParams.suffix}
+                  onChange={handleRenameParamChange}
+                  disabled={isProcessing}
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  id="replace_text"
+                  name="replace_text"
+                  placeholder="Reemplazar Texto"
+                  value={renameParams.replace_text}
+                  onChange={handleRenameParamChange}
+                  disabled={isProcessing}
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  id="replace_with"
+                  name="replace_with"
+                  placeholder="Reemplazar Por"
+                  value={renameParams.replace_with}
+                  onChange={handleRenameParamChange}
+                  disabled={isProcessing}
+                />
+              </div>
+            </>
+          )}
         </div>
       )}
 
-      <button onClick={handleExecuteTask}>Ejecutar Tarea</button>
+      <button onClick={handleExecuteTask} disabled={isProcessing}>
+        {isProcessing ? "Procesando..." : "Ejecutar Tarea"}
+      </button>
+
+      {/* Barra de carga */}
+      {isProcessing && (
+        <div className="loading-bar-container">
+          <div className="loading-bar"></div>
+          <p>Procesando... Por favor, espera.</p>
+        </div>
+      )}
 
       {/* Mostrar mensaje dinámico */}
       {message && (
