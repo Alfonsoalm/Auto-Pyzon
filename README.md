@@ -2,8 +2,8 @@
 
 **AutoPyzon** es una aplicación de escritorio diseñada para automatizar tareas repetitivas relacionadas con la gestión de archivos y documentos, utilizando la potencia de **Python** para el procesamiento y la interfaz de usuario de **Electron** y **React** para una experiencia amigable.
 
-## 🚀 Funcionalidades
 
+## 🚀 Funcionalidades
 AutoPyzon simplifica diversas tareas de oficina y gestión de archivos, incluyendo:
 
 1. **Creación de informes en Word**:
@@ -72,3 +72,7 @@ AutoPyzon simplifica diversas tareas de oficina y gestión de archivos, incluyen
 
 4. Ejecuta la aplicación:
     yarn electron-dev
+
+5. Para dev:
+   Compilar: npm run build
+   Crear ejecutable: electron-packager . AutoPyzon --platform=win32 --arch=x64 --out=dist --overwrite
