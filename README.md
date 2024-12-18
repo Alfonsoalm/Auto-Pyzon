@@ -25,7 +25,10 @@ AutoPyzon simplifica diversas tareas de oficina y gestión de archivos, incluyen
 5. **Envio, Lectura y Exportacion de mensajes de Whatsapp**:
    - En proceso ...
 
-5. **Dejar sugerencias para seguir aumentando la herramienta**
+6. **Modificacion de Excel**
+   - En proceso ....
+
+7. **Dejar sugerencias para seguir aumentando la herramienta**
 ---
 
 ## 🖥️ Tecnologías Utilizadas
