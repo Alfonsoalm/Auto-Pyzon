@@ -1,18 +1,29 @@
+import argparse
 import os
 import re
 import win32com.client
-import argparse
+import time
+import psutil
+
+# === Función para eliminar instancias previas de Word ===
+def kill_word_processes():
+    for process in psutil.process_iter(['pid', 'name']):
+        if process.info['name'] and "WINWORD.EXE" in process.info['name']:
+            print(f"Terminando proceso de Word: PID {process.info['pid']}")
+            process.terminate()
 
 # === Función para extraer número del nombre de un archivo ===
 def extract_number(file_name):
     match = re.search(r'_(\d+)', file_name)
     return int(match.group(1)) if match else float('inf')
 
-
 # === Función para combinar tablas de archivos Word en un archivo final ===
 def combine_tables(folder_path, output_file="Documento_Combinado", output_format="word"):
+    kill_word_processes()  # Cierra instancias previas de Word
     word = win32com.client.Dispatch("Word.Application")
     word.Visible = False
+    word.DisplayAlerts = False
+    output_document = None
 
     try:
         output_document = word.Documents.Add()
@@ -25,14 +36,21 @@ def combine_tables(folder_path, output_file="Documento_Combinado", output_format
 
         for file_name in docx_files:
             file_path = os.path.join(folder_path, file_name)
-            source_document = word.Documents.Open(file_path)
-
-            for table in source_document.Tables:
-                table.Range.Copy()
-                output_document.Range(output_document.Content.End - 1).Paste()
-                output_document.Content.InsertAfter("\n")
-
-            source_document.Close()
+            print(f"Procesando archivo: {file_path}")
+            try:
+                source_document = word.Documents.Open(file_path, ReadOnly=True)
+                for table in source_document.Tables:
+                    try:
+                        table.Range.Copy()
+                        time.sleep(1)  # Retraso tras copiar la tabla
+                        output_document.Range(output_document.Content.End - 1).Paste()
+                        time.sleep(1)  # Retraso tras pegar
+                        output_document.Content.InsertAfter("\n")
+                    except Exception as e:
+                        print(f"Error al copiar/pegar tabla en {file_name}: {e}")
+                source_document.Close(SaveChanges=0)
+            except Exception as e:
+                print(f"Error al procesar el archivo {file_name}: {e}")
 
         output_extension = "docx" if output_format == "word" else "pdf"
         output_path = os.path.join(folder_path, f"{output_file}.{output_extension}")
@@ -42,19 +60,22 @@ def combine_tables(folder_path, output_file="Documento_Combinado", output_format
         elif output_format == "pdf":
             output_document.SaveAs(output_path, FileFormat=17)
         else:
-            raise ValueError("Formato de salida no valido. Use 'word' o 'pdf'.")
+            raise ValueError("Formato de salida no válido. Use 'word' o 'pdf'.")
 
         print(f"Archivo combinado guardado en: {output_path}")
         return f"Archivo combinado guardado en: {output_path}"
 
     except Exception as e:
-        print(f"Error al combinar documentos: {e}")
+        print(f"Error general: {e}")
         return f"Error al combinar documentos: {e}"
 
     finally:
-        output_document.Close()
-        word.Quit()
-
+        try:
+            if output_document:
+                output_document.Close(SaveChanges=0)
+            word.Quit()
+        except Exception as e:
+            print(f"Error al cerrar Word: {e}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Gestor de documentos Word")

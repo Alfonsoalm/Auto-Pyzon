@@ -32,8 +32,8 @@ app.on("ready", createWindow);
 // Ajuste de rutas según el modo (desarrollo o empaquetado)
 const isPackaged = app.isPackaged;
 const pythonPath = isPackaged
-  ? path.join(process.resourcesPath, "app", "python_env", "python.exe").replace(/\\/g, "\\\\")
-  : path.join(__dirname, "python_env", "python.exe").replace(/\\/g, "\\\\");
+  ? path.join(process.resourcesPath, "app", "python_env","Scripts", "python.exe").replace(/\\/g, "\\\\")
+  : path.join("python_env","Scripts", "python.exe").replace(/\\/g, "\\\\");
 logToFile(`Python path: ${pythonPath}`);
 
 ipcMain.handle("execute-python-script", async (event, scriptName, params) => {
@@ -46,14 +46,14 @@ ipcMain.handle("execute-python-script", async (event, scriptName, params) => {
 
   // Ruta al script de Python
   const scriptPath = isPackaged
-    ? path.join(process.resourcesPath, "app", "src", "python", scriptName).replace(/\\/g, "\\\\") // 
-    : path.join(__dirname, "src", "python", scriptName).replace(/\\/g, "\\\\"); 
+    ? path.join(process.resourcesPath, "app", "src", "python", scriptName).replace(/\\/g, "\\\\")
+    : path.join("src", "python", scriptName).replace(/\\/g, "\\\\");
   logToFile(`Script path: ${scriptPath}`);
+  console.log(`Script path: ${scriptPath}`);
 
   // Validamos que el script existe
   if (!fs.existsSync(scriptPath)) {
     logToFile(`Script file does not exist at path: ${scriptPath}`);
-    console.log("Script");
     return Promise.reject(`Script file does not exist at path: ${scriptPath}`);
   }
 
