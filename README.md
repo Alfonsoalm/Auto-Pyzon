@@ -79,6 +79,6 @@ AutoPyzon simplifica diversas tareas de oficina y gestión de archivos, incluyen
 4. Ejecuta la aplicación:
    **yarn electron-dev**
 
-5. Para dev:
+5. Para exportar en ejecutable:
    - 5.1. Compilar: **npm run build**
    - 5.2. Crear ejecutable: **electron-packager . AutoPyzon --platform=win32 --arch=x64 --out=dist --overwrite**
