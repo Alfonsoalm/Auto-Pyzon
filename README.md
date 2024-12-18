@@ -62,17 +62,20 @@ AutoPyzon simplifica diversas tareas de oficina y gestión de archivos, incluyen
 1. Clona este repositorio:
    `bash`
    git clone https://github.com/tu-usuario/AutoPyzon.git
-   cd AutoPyzon
+   **cd AutoPyzon**
 
-2. Instala las dependencias
-    yarn install
+2. Instala las dependencias de nodejs
+   **npm install**
+
 
 3. Instala las dependencias de Python (requeridas para las automatizaciones):
-    pip install -r requirements.txt
+   3.1. Crear entorno virtual: **python -m venv python_env**
+   3.2. Activar entorno virtual: **source .\python_env\Scripts\activate**
+   3.3. Instalar dependencias con: **pip install -r requirements.txt**
 
 4. Ejecuta la aplicación:
-    yarn electron-dev
+   **yarn electron-dev**
 
 5. Para dev:
-   Compilar: npm run build
-   Crear ejecutable: electron-packager . AutoPyzon --platform=win32 --arch=x64 --out=dist --overwrite
+   5.1. Compilar: **npm run build**
+   5.2. Crear ejecutable: **electron-packager . AutoPyzon --platform=win32 --arch=x64 --out=dist --overwrite**
