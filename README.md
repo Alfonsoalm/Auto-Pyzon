@@ -7,7 +7,7 @@
 AutoPyzon simplifica diversas tareas de oficina y gestión de archivos, incluyendo:
 
 1. **Creación de informes en Word**:
-   - En proceso ...
+   - Compina las tablas de diversos word en un unico documento word o pdf
 
 2. **Gestión de carpetas**:
    - Renombra carpetas de manera masiva según criterios específicos.
@@ -19,13 +19,13 @@ AutoPyzon simplifica diversas tareas de oficina y gestión de archivos, incluyen
    - Combina varios PDFs en un solo archivo.
 
 4. **Envio, Lectura y Exportacion de correos electronicos de Gmail**:
-   - En proceso ...
+   - Exporta los correos electronicos en formatos pdf, txt  o word
+   - Envia correos simples o masivos de forma automatica
 
 5. **Envio, Lectura y Exportacion de mensajes de Whatsapp**:
    - En proceso ...
 
-5. **Algunas mas en desarrollo**
-
+5. **Dejar sugerencias para seguir aumentando la herramienta**
 ---
 
 ## 🖥️ Tecnologías Utilizadas
